@@ -27,10 +27,10 @@
                 </div>
             </div>
             <div class="bd-highlight main_panel w-100">
-                <div class="d-flex flex-row justify-content-between bd-highlight mx-0 header">
+                <div class="d-flex flex-row justify-content-between bd-highlight mx-0 main_panel__header">
                     <div class="bd-highlight">
                         <ul class="nav custom_tabs">
-                            <li class="nav_tabs__custom">
+                            <li class="custom_tabs__nav">
                                 <a class="nav-elem active text-uppercase ms-3" aria-current="page" href="#">продукты</a>
                             </li>
                         </ul>
@@ -40,10 +40,10 @@
                 <div class="d-flex justify-content-between main_content">
                     <div class="list_products">
                         <div class="list_products__header ms-3">
-                            <div class="list_header">артикул</div>
-                            <div class="list_header">название</div>
-                            <div class="list_header">статус</div>
-                            <div class="list_header">атрибуты</div>
+                            <div class="list_products__header-item">артикул</div>
+                            <div class="list_products__header-item">название</div>
+                            <div class="list_products__header-item">статус</div>
+                            <div class="list_products__header-item">атрибуты</div>
                         </div>
                         <div class="list_products__items">
                             <div class="list_products__items-item ps-3">

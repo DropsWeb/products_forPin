@@ -2172,7 +2172,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function add_attribute(event) {
     count_attr++;
-    attribute_container.innerHTML += "\n        <div class=\"attribute\" id=\"attr".concat(count_attr, "\">\n        <div class=\"row\">\n            <div class=\"col\">\n                <label for=\"statusProduct\" class=\"form-label\">\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</label>\n                <input type=\"text\" name=\"attrName").concat(count_attr, "\" class=\"form-control\" aria-label=\"First name\">\n            </div>\n            <div class=\"col\">\n                <label for=\"statusProduct\" class=\"form-label\">\u0417\u043D\u0430\u0447\u0435\u043D\u0438\u0435</label>\n                <input type=\"text\" name=\"attrValue").concat(count_attr, "\" class=\"form-control\" aria-label=\"Last name\">\n            </div>\n            <div class=\"col-1 p-1\">\n                <div class=\"del_attr\" data-idattr=\"attr").concat(count_attr, "\"><img src=\"/images/clear_attr.png\" alt=\"\"></div>\n            </div>\n        </div>\n        </div>\n        ");
+    attribute_container.insertAdjacentHTML("beforeend", "\n            <div class=\"attribute\" id=\"attr".concat(count_attr, "\">\n            <div class=\"row\">\n                <div class=\"col\">\n                    <label for=\"statusProduct\" class=\"form-label\">\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</label>\n                    <input type=\"text\" name=\"attrName").concat(count_attr, "\" class=\"form-control\" aria-label=\"First name\">\n                </div>\n                <div class=\"col\">\n                    <label for=\"statusProduct\" class=\"form-label\">\u0417\u043D\u0430\u0447\u0435\u043D\u0438\u0435</label>\n                    <input type=\"text\" name=\"attrValue").concat(count_attr, "\" class=\"form-control\" aria-label=\"Last name\">\n                </div>\n                <div class=\"col-1 p-1\">\n                    <div class=\"del_attr\" data-index=\"").concat(count_attr, "\" data-idattr=\"attr").concat(count_attr, "\"><img src=\"/images/clear_attr.png\" alt=\"\"></div>\n                </div>\n            </div>\n            </div>\n            "));
+    document.querySelectorAll(".del_attr").forEach(function (elem) {
+      elem.addEventListener("click", function () {
+        var index = elem.dataset.index;
+        document.querySelector("#attr".concat(index)).parentNode.removeChild(document.querySelector("#attr".concat(index)));
+      });
+    });
   }
 });
 

@@ -77,6 +77,7 @@ main .main_panel .main_content .list_products__items-item {
   min-height: 60px;
   grid-template-columns: repeat(4, 150px);
   border-bottom: 1px solid #c4c4c4;
+  cursor: pointer;
 }
 main .main_panel .main_content .list_products__items-item .list_item {
   display: flex;

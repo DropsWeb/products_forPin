@@ -2182,7 +2182,30 @@ document.addEventListener("DOMContentLoaded", function () {
     product.addEventListener("click", function () {
       get_info(product);
     });
-  }); // edit_product.addEventListener("click")
+  });
+  remove_product.addEventListener("click", rmProduct);
+
+  function rmProduct(event) {
+    var id = info_collapse._element.querySelector(".product_actions").dataset.id;
+
+    var token = info_collapse._element.querySelector(".product_actions").dataset.token;
+
+    var data = {
+      id: id
+    };
+    fetch('/remove_product', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        'X-CSRF-Token': token
+      },
+      body: JSON.stringify(data)
+    }).then(function (data) {
+      if (data.status == 200) {
+        location.reload();
+      }
+    });
+  }
 
   function add_attribute(event) {
     count_attr++;

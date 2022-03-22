@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let edit_product = info_collapse._element.querySelector(".action_edit");
     let remove_product = info_collapse._element.querySelector(".action_remove");
 
+
     add_count.addEventListener("click", add_attribute);
     products_block.forEach(product => {
         product.addEventListener("click", () => {
@@ -20,8 +21,29 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     })
 
-    // edit_product.addEventListener("click")
+    remove_product.addEventListener("click", rmProduct);
 
+    function rmProduct(event) {
+        let id = info_collapse._element.querySelector(".product_actions").dataset.id;
+        let token = info_collapse._element.querySelector(".product_actions").dataset.token;
+
+        let data = {
+            id: id
+        };
+        fetch('/remove_product', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'X-CSRF-Token': token
+            },
+            body: JSON.stringify(data)
+        }).then(data => {
+            if (data.status == 200) {
+                location.reload();
+            }
+        })
+
+    }
 
     function add_attribute(event) {
         count_attr++;

@@ -99,11 +99,11 @@
                             </div>
                     </div>
 
-                    <div class="collapse info_product" id="infoProduct">
+                    <div class="collapse info_product" id="infoProduct" >
                         <div class="modal-content">
                             <div class="modal-header">
                             <h5 class="modal-title"></h5>
-                            <div class="product_actions">
+                            <div class="product_actions" data-token="{{csrf_token()}}">
                                 <button class="action_edit"><img src="{{asset("images/edit.png")}}" alt="Редактировать"></button>
                                 <button class="action_remove"><img src="{{asset("images/remove.png")}}" alt="Удалить"></button>
                                 <button type="button" class="btn-close btn-close-white" data-bs-toggle="collapse" data-bs-target="#infoProduct" aria-expanded="false" aria-controls="createProduct"></button>

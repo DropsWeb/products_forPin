@@ -25,4 +25,12 @@ class ProductsController extends Controller
         return Products::all();
     }
 
+    public function remove_product(Request $request) {
+        $product = Products::find($request->id);
+        $product->delete();
+        return true;
+    }
+
+
+
 }

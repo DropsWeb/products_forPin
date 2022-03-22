@@ -17,13 +17,16 @@ class ProductsController extends Controller
         $product->DATA = json_encode($request->input('data'));
 
         $product->save();
+        return redirect('/');
+
     }
 
-    public function get_product() {
-        $products = Products::all();
-        foreach($product as $product){
-            echo '<pre>'; print_r($product::all()); '</pre>';
-        }
+    public static function get_product() {
+        // $products = Products::all();
+        // foreach($products as $product){
+        //     echo '<pre>'; print_r($product->get()); '</pre>';
+        // }
+        return Products::all();
     }
 
 }

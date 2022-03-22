@@ -46,24 +46,18 @@
                             <div class="list_products__header-item">атрибуты</div>
                         </div>
                         <div class="list_products__items">
-                            <div class="list_products__items-item ps-3">
-                                <div class="list_item">mtokb2</div>
-                                <div class="list_item">MTOK-B2/216-1KT3645-K</div>
-                                <div class="list_item">Доступен</div>
-                                <div class="list_item-col">
-                                    <div class="list_item">Цвет: черный</div>
-                                    <div class="list_item">Размер: L</div>
+                            @foreach ($products as $product)
+                                <div class="list_products__items-item ps-3">
+                                    <div class="list_item">{{$product->ARTICLE}}</div>
+                                    <div class="list_item">{{$product->NAME}}</div>
+                                    <div class="list_item">{{($product->STATUS) ? "Доступен" : "Не доступен"}}</div>
+                                    <div class="list_item-col">
+                                        @foreach (json_decode($product->DATA) as $data)
+                                            <div class="list_item">{{$data->name}} : {{$data->value}}</div>
+                                        @endforeach
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="list_products__items-item ps-3">
-                                <div class="list_item">mtokb2</div>
-                                <div class="list_item">MTOK-B2/216-1KT3645-K</div>
-                                <div class="list_item">Доступен</div>
-                                <div class="list_item-col">
-                                    <div class="list_item">Цвет: черный</div>
-                                    <div class="list_item">Размер: L</div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="me-4 mt-3">

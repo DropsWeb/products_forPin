@@ -15,7 +15,9 @@ use App\Http\Controllers\ProductsController;
 */
 
 Route::get('/', function () {
-    return view('main');
+    $products = ProductsController::get_product();
+    // echo '<pre>'; print_r($products); '</pre>';
+    return view('main', compact('products'));
 });
 
 Route::put('/add_product', [ProductsController::class, 'add_product']);

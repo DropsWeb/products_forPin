@@ -22,10 +22,6 @@ class ProductsController extends Controller
     }
 
     public static function get_product() {
-        // $products = Products::all();
-        // foreach($products as $product){
-        //     echo '<pre>'; print_r($product->get()); '</pre>';
-        // }
         return Products::all();
     }
 

@@ -2168,7 +2168,21 @@ document.addEventListener("DOMContentLoaded", function () {
   var count_attr = 0;
   var add_count = document.querySelector(".add_attr");
   var attribute_container = document.querySelector(".form_attributes");
+  var products_block = document.querySelectorAll(".list_products__items-item");
+  var info_collapse = new bootstrap.Collapse(document.getElementById("infoProduct"), {
+    toggle: false
+  });
+
+  var edit_product = info_collapse._element.querySelector(".action_edit");
+
+  var remove_product = info_collapse._element.querySelector(".action_remove");
+
   add_count.addEventListener("click", add_attribute);
+  products_block.forEach(function (product) {
+    product.addEventListener("click", function () {
+      get_info(product);
+    });
+  }); // edit_product.addEventListener("click")
 
   function add_attribute(event) {
     count_attr++;
@@ -2179,6 +2193,19 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector("#attr".concat(index)).parentNode.removeChild(document.querySelector("#attr".concat(index)));
       });
     });
+  }
+
+  function get_info(data) {
+    var product_data = JSON.parse(data.dataset.product);
+    product_data.DATA = JSON.parse(product_data.DATA);
+
+    var info_product = info_collapse._element.querySelector(".modal-body");
+
+    info_collapse._element.querySelector(".modal-title").innerText = product_data.NAME;
+    info_collapse._element.querySelector(".product_actions").dataset.id = product_data.id;
+    info_product.innerText = "";
+    info_product.insertAdjacentHTML("beforeend", "\n            <div class=\"row mb-3\">\n                <div class=\"col-2 product_name\">\u0410\u0440\u0442\u0438\u043A\u0443\u043B</div>\n                <div class=\"col-6 product_value\">".concat(product_data.ARTICLE, "</div>\n            </div>\n            <div class=\"row mb-3\">\n                <div class=\"col-2 product_name\">\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</div>\n                <div class=\"col-6 product_value\">").concat(product_data.NAME, "</div>\n            </div>\n            <div class=\"row mb-3\">\n                <div class=\"col-2 product_name\">\u0421\u0442\u0430\u0442\u0443\u0441</div>\n                <div class=\"col-6 product_value\">").concat(product_data.STATUS, "</div>\n            </div>\n        "));
+    info_collapse.show();
   }
 });
 

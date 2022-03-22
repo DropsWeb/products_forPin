@@ -47,7 +47,7 @@
                         </div>
                         <div class="list_products__items">
                             @foreach ($products as $product)
-                                <div class="list_products__items-item ps-3">
+                                <div class="list_products__items-item ps-3" data-product='{{json_encode($product)}}'>
                                     <div class="list_item">{{$product->ARTICLE}}</div>
                                     <div class="list_item">{{$product->NAME}}</div>
                                     <div class="list_item">{{($product->STATUS) ? "Доступен" : "Не доступен"}}</div>
@@ -64,10 +64,10 @@
                         <button class="add_product" type="button" data-bs-toggle="collapse" data-bs-target="#createProduct" aria-expanded="false" aria-controls="createProduct">Добавить</button>
                     </div>
                     <div class="collapse create_product" id="createProduct">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h5 class="modal-title">Добавить продукт</h5>
-                                    <button type="button" class="btn-close btn-close-white" data-bs-toggle="collapse" data-bs-target="#createProduct" aria-expanded="false" aria-controls="createProduct"></button>
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title">Добавить продукт</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-toggle="collapse" data-bs-target="#createProduct" aria-expanded="false" aria-controls="createProduct"></button>
                                 </div>
                                 <div class="modal-body">
                                     <form method="POST" action="/add_product">
@@ -96,6 +96,20 @@
                                         <button type="submit" class="add_product">Добавить</button>
                                     </form>
                                 </div>
+                            </div>
+                    </div>
+
+                    <div class="collapse info_product" id="infoProduct">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title"></h5>
+                            <div class="product_actions">
+                                <button class="action_edit"><img src="{{asset("images/edit.png")}}" alt="Редактировать"></button>
+                                <button class="action_remove"><img src="{{asset("images/remove.png")}}" alt="Удалить"></button>
+                                <button type="button" class="btn-close btn-close-white" data-bs-toggle="collapse" data-bs-target="#infoProduct" aria-expanded="false" aria-controls="createProduct"></button>
+                            </div>
+                            </div>
+                            <div class="modal-body"></div>
                         </div>
                     </div>
                 </div>

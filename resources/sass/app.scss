@@ -147,6 +147,59 @@ main {
                     }
                 }
             }
+            .info_product {
+                position: absolute;
+                right: 0px;
+                top: 0px;
+                width: 630px;
+                min-height: 387px;
+                background-color: #374050;
+                .modal-content {
+                    background-color: #374050;
+                    border: none;
+                    color: #fff;
+                }
+                .modal-header {
+                    border: none;
+                }
+                .modal-title {
+                    font-size: 20px;
+                }
+                .product_actions {
+                    display: flex;
+                    align-items: center;
+                    .action_edit,
+                    .action_remove {
+                        width: 20px;
+                        height: 20px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        outline: none;
+                        border: 0;
+                        background: transparent;
+                        margin-right: 5px;
+                        img {
+                            width: 20px;
+                            height: 20px;
+                        }
+                    }
+                }
+                .modal-body {
+                    width: 80%;
+                    .product {
+                        &_name {
+                            font-size: 11px;
+                            color: #fff;
+                            opacity: 0.7;
+                        }
+                        &_value {
+                            font-size: 11px;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
         }
     }
 }

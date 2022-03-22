@@ -4,8 +4,24 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let add_count = document.querySelector(".add_attr");
     let attribute_container = document.querySelector(".form_attributes");
+    let products_block = document.querySelectorAll(".list_products__items-item");
+
+
+    let info_collapse = new bootstrap.Collapse(document.getElementById("infoProduct"), {
+        toggle: false
+    });
+    let edit_product = info_collapse._element.querySelector(".action_edit");
+    let remove_product = info_collapse._element.querySelector(".action_remove");
 
     add_count.addEventListener("click", add_attribute);
+    products_block.forEach(product => {
+        product.addEventListener("click", () => {
+            get_info(product);
+        });
+    })
+
+    // edit_product.addEventListener("click")
+
 
     function add_attribute(event) {
         count_attr++;
@@ -36,4 +52,34 @@ document.addEventListener("DOMContentLoaded", function() {
             })
         })
     }
+
+    function get_info(data) {
+        let product_data = JSON.parse(data.dataset.product);
+        product_data.DATA = JSON.parse(product_data.DATA);
+
+        let info_product = info_collapse._element.querySelector(".modal-body");
+        info_collapse._element.querySelector(".modal-title").innerText = product_data.NAME;
+        info_collapse._element.querySelector(".product_actions").dataset.id = product_data.id;
+
+        info_product.innerText = "";
+        info_product.insertAdjacentHTML("beforeend", `
+            <div class="row mb-3">
+                <div class="col-2 product_name">Артикул</div>
+                <div class="col-6 product_value">${product_data.ARTICLE}</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-2 product_name">Название</div>
+                <div class="col-6 product_value">${product_data.NAME}</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-2 product_name">Статус</div>
+                <div class="col-6 product_value">${product_data.STATUS}</div>
+            </div>
+        `);
+        info_collapse.show();
+    }
+
+
+
+
 })

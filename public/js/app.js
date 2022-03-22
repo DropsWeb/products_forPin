@@ -2226,8 +2226,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     info_collapse._element.querySelector(".modal-title").innerText = product_data.NAME;
     info_collapse._element.querySelector(".product_actions").dataset.id = product_data.id;
+    var attributes = "";
+
+    for (attribute in product_data.DATA) {
+      var elem = product_data.DATA[attribute];
+      attributes += "\n                <div class=\"col product_value\">".concat(elem.name, " : ").concat(elem.value, "</div>\n            ");
+    }
+
     info_product.innerText = "";
-    info_product.insertAdjacentHTML("beforeend", "\n            <div class=\"row mb-3\">\n                <div class=\"col-2 product_name\">\u0410\u0440\u0442\u0438\u043A\u0443\u043B</div>\n                <div class=\"col-6 product_value\">".concat(product_data.ARTICLE, "</div>\n            </div>\n            <div class=\"row mb-3\">\n                <div class=\"col-2 product_name\">\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</div>\n                <div class=\"col-6 product_value\">").concat(product_data.NAME, "</div>\n            </div>\n            <div class=\"row mb-3\">\n                <div class=\"col-2 product_name\">\u0421\u0442\u0430\u0442\u0443\u0441</div>\n                <div class=\"col-6 product_value\">").concat(product_data.STATUS, "</div>\n            </div>\n        "));
+    info_product.insertAdjacentHTML("beforeend", "\n            <div class=\"row mb-3\">\n                <div class=\"col-2 product_name\">\u0410\u0440\u0442\u0438\u043A\u0443\u043B</div>\n                <div class=\"col-6 product_value\">".concat(product_data.ARTICLE, "</div>\n            </div>\n            <div class=\"row mb-3\">\n                <div class=\"col-2 product_name\">\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</div>\n                <div class=\"col-6 product_value\">").concat(product_data.NAME, "</div>\n            </div>\n            <div class=\"row mb-3\">\n                <div class=\"col-2 product_name\">\u0421\u0442\u0430\u0442\u0443\u0441</div>\n                <div class=\"col-6 product_value\">").concat(product_data.STATUS, "</div>\n            </div>\n            <div class=\"row mb-3\">\n                <div class=\"col-2 product_name\">\u0410\u0442\u0440\u0438\u0431\u0443\u0442\u044B</div>\n                <div class=\"col-6\">\n                    ").concat(attributes, "\n                </div>\n            <div>\n        "));
     info_collapse.show();
   }
 });

@@ -42,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 location.reload();
             }
         })
-
     }
 
     function add_attribute(event) {
@@ -83,7 +82,16 @@ document.addEventListener("DOMContentLoaded", function() {
         info_collapse._element.querySelector(".modal-title").innerText = product_data.NAME;
         info_collapse._element.querySelector(".product_actions").dataset.id = product_data.id;
 
+        let attributes = "";
+        for (attribute in product_data.DATA) {
+            let elem = product_data.DATA[attribute]
+            attributes += `
+                <div class="col product_value">${elem.name} : ${elem.value}</div>
+            `
+        }
+
         info_product.innerText = "";
+
         info_product.insertAdjacentHTML("beforeend", `
             <div class="row mb-3">
                 <div class="col-2 product_name">Артикул</div>
@@ -97,7 +105,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="col-2 product_name">Статус</div>
                 <div class="col-6 product_value">${product_data.STATUS}</div>
             </div>
+            <div class="row mb-3">
+                <div class="col-2 product_name">Атрибуты</div>
+                <div class="col-6">
+                    ${attributes}
+                </div>
+            <div>
         `);
+
+
+
         info_collapse.show();
     }
 

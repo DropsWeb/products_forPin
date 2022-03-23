@@ -189,8 +189,8 @@ document.addEventListener("DOMContentLoaded", function() {
                         <div class="mb-3">
                             <label for="statusProduct" class="form-label">Статус</label>
                             <select class="form-select" name="status" id="statusProduct" value="${product_data.STATUS}" aria-label="Default select example">
-                                <option value="1">Доступен</option>
-                                <option value="2">Не доступен</option>
+                                <option value="available">Доступен</option>
+                                <option value="unavailable">Не доступен</option>
                             </select>
                         </div>
                         <div class="mb-3 d-flex flex-column">

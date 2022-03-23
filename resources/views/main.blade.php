@@ -13,6 +13,7 @@
 <body>
     <main>
         <div class="d-flex flex-row bd-highlight h-100">
+
             <div class="bd-highlight left_panel">
                 <div class="row">
                     <div class="col d-flex bg-light align-items-center justify-content-center logo_products"><img src="{{asset("images/logo.svg")}}" alt=""></div>
@@ -37,6 +38,14 @@
                     </div>
                     <div class="bd-highlight user_name me-5">Елсуков Андрей Вячеславович</div>
                 </div>
+                <div class="d-flex justify-content-between flex-column error_content">
+                    @error('name', 'add')
+                        <div class="alert alert-danger w-100">{{ $message }}</div>
+                    @enderror
+                    @error('article', 'add')
+                        <div class="alert alert-danger w-100">{{ $message }}</div>
+                    @enderror
+                </div>
                 <div class="d-flex justify-content-between main_content">
                     <div class="list_products">
                         <div class="list_products__header ms-3">
@@ -50,7 +59,7 @@
                                 <div class="list_products__items-item ps-3" data-product='{{json_encode($product)}}'>
                                     <div class="list_item">{{$product->ARTICLE}}</div>
                                     <div class="list_item">{{$product->NAME}}</div>
-                                    <div class="list_item">{{($product->STATUS) ? "Доступен" : "Не доступен"}}</div>
+                                    <div class="list_item">{{($product->STATUS == "available") ? "Доступен" : "Не доступен"}}</div>
                                     <div class="list_item-col">
                                         @if (json_decode($product->DATA))
                                             @foreach (json_decode($product->DATA) as $data)
@@ -77,17 +86,17 @@
                                     @csrf
                                     <div class="mb-3">
                                         <label for="articleProduct" class="form-label">Артикул</label>
-                                        <input type="string" required name="article" class="form-control" id="articleProduct" aria-describedby="articleProduct">
+                                        <input type="string" required name="article" class="form-control" id="articleProduct" value="{{old('article')}}" aria-describedby="articleProduct">
                                     </div>
                                     <div class="mb-3">
                                         <label for="nameProduct" class="form-label">Название</label>
-                                        <input type="string" required name="name" class="form-control" id="nameProduct" aria-describedby="nameProduct">
+                                        <input type="string" required name="name" class="form-control" id="nameProduct" value="{{old('name')}}" aria-describedby="nameProduct">
                                     </div>
                                     <div class="mb-3">
                                         <label for="statusProduct" class="form-label">Статус</label>
                                         <select class="form-select" name="status" id="statusProduct" aria-label="Default select example">
-                                            <option value="1">Доступен</option>
-                                            <option value="2">Не доступен</option>
+                                            <option value="available">Доступен</option>
+                                            <option value="unavailable">Не доступен</option>
                                         </select>
                                     </div>
                                     <div class="mb-3 d-flex flex-column">

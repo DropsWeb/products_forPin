@@ -9,6 +9,12 @@ class ProductsController extends Controller
 {
 
     public function add_product(Request $request) {
+
+        $request->validateWithBag('add', [
+            'name' => ['bail', 'required','min:10'],
+            'article' => ['bail', 'required', 'unique:App\Models\Products,ARTICLE', 'regex:/^[A-Za-z0-9]+$/']
+        ]);
+
         $product = new Products;
 
         $product->ARTICLE = $request->article;
@@ -22,7 +28,8 @@ class ProductsController extends Controller
     }
 
     public static function get_product() {
-        return Products::all()->sortByDesc('id');
+        // return Products::all()->where("STATUS", 'available')->sortByDesc('id');
+        return Products::statusAvailable();
     }
 
     public function remove_product(Request $request) {

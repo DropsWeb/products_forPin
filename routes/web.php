@@ -24,3 +24,4 @@ Route::put('/add_product', [ProductsController::class, 'add_product']);
 
 
 Route::post('/remove_product', [ProductsController::class, 'remove_product']);
+Route::post('/edit_product', [ProductsController::class, 'edit_product']);

@@ -97,35 +97,43 @@ main .main_panel .main_content .add_product {
   color: #fff;
   border-radius: 5px;
 }
-main .main_panel .main_content .create_product {
+main .main_panel .main_content .create_product,
+main .main_panel .main_content .edit_product {
   position: absolute;
   right: 0px;
   top: 0px;
   width: 630px;
   background-color: #374050;
 }
-main .main_panel .main_content .create_product .modal-content {
+main .main_panel .main_content .create_product .modal-content,
+main .main_panel .main_content .edit_product .modal-content {
   background-color: #374050;
   border: none;
   color: #fff;
 }
-main .main_panel .main_content .create_product .modal-header {
+main .main_panel .main_content .create_product .modal-header,
+main .main_panel .main_content .edit_product .modal-header {
   border: none;
 }
-main .main_panel .main_content .create_product .modal-title {
+main .main_panel .main_content .create_product .modal-title,
+main .main_panel .main_content .edit_product .modal-title {
   font-size: 20px;
 }
-main .main_panel .main_content .create_product .modal-body {
+main .main_panel .main_content .create_product .modal-body,
+main .main_panel .main_content .edit_product .modal-body {
   width: 80%;
 }
-main .main_panel .main_content .create_product .modal-body .form-label {
+main .main_panel .main_content .create_product .modal-body .form-label,
+main .main_panel .main_content .edit_product .modal-body .form-label {
   font-size: 9px;
 }
-main .main_panel .main_content .create_product .modal-body .form-label-attr {
+main .main_panel .main_content .create_product .modal-body .form-label-attr,
+main .main_panel .main_content .edit_product .modal-body .form-label-attr {
   font-size: 14px;
   font-weight: 900;
 }
-main .main_panel .main_content .create_product .add_attr {
+main .main_panel .main_content .create_product .add_attr,
+main .main_panel .main_content .edit_product .add_attr {
   color: #0FC5FF;
   border-bottom: 1px dotted #0FC5FF;
   font-size: 9px;
@@ -134,18 +142,22 @@ main .main_panel .main_content .create_product .add_attr {
   width: fit-content;
   cursor: pointer;
 }
-main .main_panel .main_content .create_product .form-select option {
+main .main_panel .main_content .create_product .form-select option,
+main .main_panel .main_content .edit_product .form-select option {
   border-radius: 5px;
   height: 30px;
 }
-main .main_panel .main_content .create_product .del_attr {
+main .main_panel .main_content .create_product .del_attr,
+main .main_panel .main_content .edit_product .del_attr {
   padding-top: 29px;
   cursor: pointer;
 }
-main .main_panel .main_content .create_product .del_attr img {
+main .main_panel .main_content .create_product .del_attr img,
+main .main_panel .main_content .edit_product .del_attr img {
   height: 11px;
 }
-main .main_panel .main_content .create_product .del_attr:active {
+main .main_panel .main_content .create_product .del_attr:active,
+main .main_panel .main_content .edit_product .del_attr:active {
   transform: scale(0.99);
 }
 main .main_panel .main_content .info_product {

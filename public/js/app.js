@@ -2166,10 +2166,20 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 document.addEventListener("DOMContentLoaded", function () {
   var count_attr = 0;
-  var add_count = document.querySelector(".add_attr");
-  var attribute_container = document.querySelector(".form_attributes");
-  var products_block = document.querySelectorAll(".list_products__items-item");
+  var count_attr_edit = 0;
+  var create_product_container = document.querySelector(".create_product");
+  var edit_product_container = document.querySelector(".edit_product");
+  var add_count_create = create_product_container.querySelector(".add_attr");
+  var add_count_edit;
+  var attribute_container_add = create_product_container.querySelector(".form_attributes");
+  var attribute_container_edit;
+  var products_block = document.querySelectorAll(".list_products__items-item"); // Выбранный товар
+
+  var product_data;
   var info_collapse = new bootstrap.Collapse(document.getElementById("infoProduct"), {
+    toggle: false
+  });
+  var edit_collapse = new bootstrap.Collapse(document.getElementById("editProduct"), {
     toggle: false
   });
 
@@ -2177,13 +2187,58 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var remove_product = info_collapse._element.querySelector(".action_remove");
 
-  add_count.addEventListener("click", add_attribute);
+  add_count_create.addEventListener("click", function (event) {
+    add_attribute(event, attribute_container_add, "add");
+  }, false);
   products_block.forEach(function (product) {
     product.addEventListener("click", function () {
       get_info(product);
     });
   });
   remove_product.addEventListener("click", rmProduct);
+  edit_product.addEventListener("click", edProduct);
+
+  function add_attribute(event, attribute_container, type) {
+    var counter;
+
+    if (type == "add") {
+      count_attr++;
+      counter = count_attr;
+    } else {
+      count_attr_edit++;
+      counter = count_attr_edit;
+    }
+
+    count_attr++;
+    attribute_container.insertAdjacentHTML("beforeend", "\n            <div class=\"attribute\" id=\"attr".concat(counter, "\">\n            <div class=\"row\">\n                <div class=\"col\">\n                    <label for=\"statusProduct\" class=\"form-label\">\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</label>\n                    <input type=\"text\" required name=\"data[").concat(counter, "][name]\" class=\"form-control\" aria-label=\"First name\">\n                </div>\n                <div class=\"col\">\n                    <label for=\"statusProduct\" class=\"form-label\">\u0417\u043D\u0430\u0447\u0435\u043D\u0438\u0435</label>\n                    <input type=\"text\" required name=\"data[").concat(counter, "][value]\" class=\"form-control\" aria-label=\"Last name\">\n                </div>\n                <div class=\"col-1 p-1\">\n                    <div class=\"del_attr\" data-index=\"").concat(counter, "\" data-idattr=\"attr").concat(counter, "\"><img src=\"/images/clear_attr.png\" alt=\"\"></div>\n                </div>\n            </div>\n            </div>\n            "));
+    attribute_container.querySelectorAll(".del_attr").forEach(function (elem) {
+      elem.addEventListener("click", function () {
+        var index = elem.dataset.index;
+        attribute_container.querySelector("#attr".concat(index)).parentNode.removeChild(document.querySelector("#attr".concat(index)));
+      });
+    });
+  }
+
+  function get_info(data) {
+    edit_collapse.hide();
+    product_data = JSON.parse(data.dataset.product);
+    product_data.DATA = JSON.parse(product_data.DATA);
+
+    var info_product = info_collapse._element.querySelector(".modal-body");
+
+    info_collapse._element.querySelector(".modal-title").innerText = product_data.NAME;
+    info_collapse._element.querySelector(".product_actions").dataset.id = product_data.id;
+    var attributes = "";
+
+    for (attribute in product_data.DATA) {
+      var elem = product_data.DATA[attribute];
+      attributes += "\n                <div class=\"col product_value\">".concat(elem.name, " : ").concat(elem.value, "</div>\n            ");
+    }
+
+    info_product.innerText = "";
+    info_product.insertAdjacentHTML("beforeend", "\n            <div class=\"row mb-3\">\n                <div class=\"col-2 product_name\">\u0410\u0440\u0442\u0438\u043A\u0443\u043B</div>\n                <div class=\"col-6 product_value\">".concat(product_data.ARTICLE, "</div>\n            </div>\n            <div class=\"row mb-3\">\n                <div class=\"col-2 product_name\">\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</div>\n                <div class=\"col-6 product_value\">").concat(product_data.NAME, "</div>\n            </div>\n            <div class=\"row mb-3\">\n                <div class=\"col-2 product_name\">\u0421\u0442\u0430\u0442\u0443\u0441</div>\n                <div class=\"col-6 product_value\">").concat(product_data.STATUS, "</div>\n            </div>\n            <div class=\"row mb-3\">\n                <div class=\"col-2 product_name\">\u0410\u0442\u0440\u0438\u0431\u0443\u0442\u044B</div>\n                <div class=\"col-6\">\n                    ").concat(attributes, "\n                </div>\n            <div>\n        "));
+    info_collapse.show();
+  }
 
   function rmProduct(event) {
     var id = info_collapse._element.querySelector(".product_actions").dataset.id;
@@ -2207,35 +2262,36 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  function add_attribute(event) {
-    count_attr++;
-    attribute_container.insertAdjacentHTML("beforeend", "\n            <div class=\"attribute\" id=\"attr".concat(count_attr, "\">\n            <div class=\"row\">\n                <div class=\"col\">\n                    <label for=\"statusProduct\" class=\"form-label\">\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</label>\n                    <input type=\"text\" name=\"data[").concat(count_attr, "][name]\" class=\"form-control\" aria-label=\"First name\">\n                </div>\n                <div class=\"col\">\n                    <label for=\"statusProduct\" class=\"form-label\">\u0417\u043D\u0430\u0447\u0435\u043D\u0438\u0435</label>\n                    <input type=\"text\" name=\"data[").concat(count_attr, "][value]\" class=\"form-control\" aria-label=\"Last name\">\n                </div>\n                <div class=\"col-1 p-1\">\n                    <div class=\"del_attr\" data-index=\"").concat(count_attr, "\" data-idattr=\"attr").concat(count_attr, "\"><img src=\"/images/clear_attr.png\" alt=\"\"></div>\n                </div>\n            </div>\n            </div>\n            "));
-    document.querySelectorAll(".del_attr").forEach(function (elem) {
-      elem.addEventListener("click", function () {
-        var index = elem.dataset.index;
-        document.querySelector("#attr".concat(index)).parentNode.removeChild(document.querySelector("#attr".concat(index)));
-      });
-    });
-  }
-
-  function get_info(data) {
-    var product_data = JSON.parse(data.dataset.product);
-    product_data.DATA = JSON.parse(product_data.DATA);
-
-    var info_product = info_collapse._element.querySelector(".modal-body");
-
-    info_collapse._element.querySelector(".modal-title").innerText = product_data.NAME;
-    info_collapse._element.querySelector(".product_actions").dataset.id = product_data.id;
+  function edProduct(event) {
+    info_collapse.hide();
+    var token = edit_product_container.dataset.token;
     var attributes = "";
+    console.log(product_data);
+    count_attr_edit = Object.keys(product_data.DATA).length;
+    var counter = 0;
 
     for (attribute in product_data.DATA) {
       var elem = product_data.DATA[attribute];
-      attributes += "\n                <div class=\"col product_value\">".concat(elem.name, " : ").concat(elem.value, "</div>\n            ");
+      counter++;
+      attributes += "\n                <div class=\"attribute\" id=\"attr".concat(counter, "\">\n                    <div class=\"row\">\n                        <div class=\"col\">\n                            <label for=\"statusProduct\" class=\"form-label\">\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</label>\n                            <input type=\"text\" required name=\"data[").concat(counter, "][name]\" value=\"").concat(elem.name, "\" class=\"form-control\" aria-label=\"First name\">\n                        </div>\n                        <div class=\"col\">\n                            <label for=\"statusProduct\" class=\"form-label\">\u0417\u043D\u0430\u0447\u0435\u043D\u0438\u0435</label>\n                            <input type=\"text\" required name=\"data[").concat(counter, "][value]\" value=\"").concat(elem.value, "\" class=\"form-control\" aria-label=\"Last name\">\n                        </div>\n                        <div class=\"col-1 p-1\">\n                            <div class=\"del_attr\" data-index=\"").concat(counter, "\" data-idattr=\"attr").concat(counter, "\"><img src=\"/images/clear_attr.png\" alt=\"\"></div>\n                        </div>\n                    </div>\n                </div>\n            ");
     }
 
-    info_product.innerText = "";
-    info_product.insertAdjacentHTML("beforeend", "\n            <div class=\"row mb-3\">\n                <div class=\"col-2 product_name\">\u0410\u0440\u0442\u0438\u043A\u0443\u043B</div>\n                <div class=\"col-6 product_value\">".concat(product_data.ARTICLE, "</div>\n            </div>\n            <div class=\"row mb-3\">\n                <div class=\"col-2 product_name\">\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</div>\n                <div class=\"col-6 product_value\">").concat(product_data.NAME, "</div>\n            </div>\n            <div class=\"row mb-3\">\n                <div class=\"col-2 product_name\">\u0421\u0442\u0430\u0442\u0443\u0441</div>\n                <div class=\"col-6 product_value\">").concat(product_data.STATUS, "</div>\n            </div>\n            <div class=\"row mb-3\">\n                <div class=\"col-2 product_name\">\u0410\u0442\u0440\u0438\u0431\u0443\u0442\u044B</div>\n                <div class=\"col-6\">\n                    ").concat(attributes, "\n                </div>\n            <div>\n        "));
-    info_collapse.show();
+    var edit_content = "\n            <div class=\"modal-content\">\n                <div class=\"modal-header\">\n                <h5 class=\"modal-title\">\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C ".concat(product_data.NAME, "</h5>\n                <button type=\"button\" class=\"btn-close btn-close-white\" data-bs-toggle=\"collapse\" data-bs-target=\"#editProduct\" aria-expanded=\"false\" aria-controls=\"editProduct\"></button>\n                </div>\n                <div class=\"modal-body\">\n                    <form method=\"POST\" action=\"/edit_product\">\n                        <input type=\"hidden\" name=\"_token\" value=\"").concat(token, "\">\n                        <input type=\"hidden\" name=\"id\" value=\"").concat(product_data.id, "\">\n                        <div class=\"mb-3\">\n                            <label for=\"articleProduct\" class=\"form-label\">\u0410\u0440\u0442\u0438\u043A\u0443\u043B</label>\n                            <input type=\"string\" required name=\"article\" class=\"form-control\" id=\"articleProduct\" value=\"").concat(product_data.ARTICLE, "\" aria-describedby=\"articleProduct\">\n                        </div>\n                        <div class=\"mb-3\">\n                            <label for=\"nameProduct\" class=\"form-label\">\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</label>\n                            <input type=\"string\" required name=\"name\" class=\"form-control\" id=\"nameProduct\" value=\"").concat(product_data.NAME, "\" aria-describedby=\"nameProduct\">\n                        </div>\n                        <div class=\"mb-3\">\n                            <label for=\"statusProduct\" class=\"form-label\">\u0421\u0442\u0430\u0442\u0443\u0441</label>\n                            <select class=\"form-select\" name=\"status\" id=\"statusProduct\" value=\"").concat(product_data.STATUS, "\" aria-label=\"Default select example\">\n                                <option value=\"1\">\u0414\u043E\u0441\u0442\u0443\u043F\u0435\u043D</option>\n                                <option value=\"2\">\u041D\u0435 \u0434\u043E\u0441\u0442\u0443\u043F\u0435\u043D</option>\n                            </select>\n                        </div>\n                        <div class=\"mb-3 d-flex flex-column\">\n                            <label for=\"\" class=\"form-label-attr mb-4\"> \u0410\u0442\u0440\u0438\u0431\u0443\u0442\u044B</label>\n                            <div class=\"form_attributes\">").concat(attributes, "</div>\n                            <div class=\"add_attr mt-4 mb-3\">+ \u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0430\u0442\u0440\u0438\u0431\u0443\u0442</div>\n                        </div>\n                        <button type=\"submit\" class=\"add_product\">\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C</button>\n                    </form>\n                </div>\n            </div>\n        ");
+    edit_product_container.innerText = "";
+    edit_product_container.insertAdjacentHTML('beforeend', edit_content);
+    add_count_create = create_product_container.querySelector(".add_attr");
+    add_count_edit = edit_product_container.querySelector(".add_attr");
+    attribute_container_edit = edit_product_container.querySelector(".form_attributes");
+    add_count_edit.addEventListener("click", function (event) {
+      add_attribute(event, attribute_container_edit, "edit");
+    }, false);
+    edit_collapse.show();
+    attribute_container_edit.querySelectorAll(".del_attr").forEach(function (elem) {
+      elem.addEventListener("click", function () {
+        var index = elem.dataset.index;
+        attribute_container_edit.querySelector("#attr".concat(index)).parentNode.removeChild(document.querySelector("#attr".concat(index)));
+      });
+    });
   }
 });
 

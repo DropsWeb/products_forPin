@@ -22,13 +22,24 @@ class ProductsController extends Controller
     }
 
     public static function get_product() {
-        return Products::all();
+        return Products::all()->sortByDesc('id');
     }
 
     public function remove_product(Request $request) {
         $product = Products::find($request->id);
         $product->delete();
         return true;
+    }
+
+    public function edit_product(Request $request) {
+        $product = Products::find($request->id);
+        $product->ARTICLE = $request->article;
+        $product->NAME = $request->name;
+        $product->STATUS = $request->status;
+        $product->DATA = json_encode($request->input('data'));
+        $product->save();
+
+        return redirect('/');
     }
 
 

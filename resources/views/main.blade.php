@@ -52,9 +52,11 @@
                                     <div class="list_item">{{$product->NAME}}</div>
                                     <div class="list_item">{{($product->STATUS) ? "Доступен" : "Не доступен"}}</div>
                                     <div class="list_item-col">
-                                        @foreach (json_decode($product->DATA) as $data)
-                                            <div class="list_item">{{$data->name}} : {{$data->value}}</div>
-                                        @endforeach
+                                        @if (json_decode($product->DATA))
+                                            @foreach (json_decode($product->DATA) as $data)
+                                                <div class="list_item">{{$data->name}} : {{$data->value}}</div>
+                                            @endforeach
+                                        @endif
                                     </div>
                                 </div>
                             @endforeach
@@ -64,40 +66,41 @@
                         <button class="add_product" type="button" data-bs-toggle="collapse" data-bs-target="#createProduct" aria-expanded="false" aria-controls="createProduct">Добавить</button>
                     </div>
                     <div class="collapse create_product" id="createProduct">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <h5 class="modal-title">Добавить продукт</h5>
-                                <button type="button" class="btn-close btn-close-white" data-bs-toggle="collapse" data-bs-target="#createProduct" aria-expanded="false" aria-controls="createProduct"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form method="POST" action="/add_product">
-                                        @method("PUT")
-                                        @csrf
-                                        <div class="mb-3">
-                                            <label for="articleProduct" class="form-label">Артикул</label>
-                                            <input type="string" name="article" class="form-control" id="articleProduct" aria-describedby="articleProduct">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="nameProduct" class="form-label">Название</label>
-                                            <input type="string" name="name" class="form-control" id="nameProduct" aria-describedby="nameProduct">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="statusProduct" class="form-label">Статус</label>
-                                            <select class="form-select" name="status" id="statusProduct" aria-label="Default select example">
-                                                <option value="1">Доступен</option>
-                                                <option value="2">Не доступен</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3 d-flex flex-column">
-                                            <label for="" class="form-label-attr mb-4"> Атрибуты</label>
-                                            <div class="form_attributes"></div>
-                                            <div class="add_attr mt-4 mb-3">+ Добавить атрибут</div>
-                                        </div>
-                                        <button type="submit" class="add_product">Добавить</button>
-                                    </form>
-                                </div>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title">Добавить продукт</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-toggle="collapse" data-bs-target="#createProduct" aria-expanded="false" aria-controls="createProduct"></button>
                             </div>
+                            <div class="modal-body">
+                                <form method="POST" action="/add_product">
+                                    @method("PUT")
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="articleProduct" class="form-label">Артикул</label>
+                                        <input type="string" required name="article" class="form-control" id="articleProduct" aria-describedby="articleProduct">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="nameProduct" class="form-label">Название</label>
+                                        <input type="string" required name="name" class="form-control" id="nameProduct" aria-describedby="nameProduct">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="statusProduct" class="form-label">Статус</label>
+                                        <select class="form-select" name="status" id="statusProduct" aria-label="Default select example">
+                                            <option value="1">Доступен</option>
+                                            <option value="2">Не доступен</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3 d-flex flex-column">
+                                        <label for="" class="form-label-attr mb-4"> Атрибуты</label>
+                                        <div class="form_attributes"></div>
+                                        <div class="add_attr mt-4 mb-3">+ Добавить атрибут</div>
+                                    </div>
+                                    <button type="submit" class="add_product">Добавить</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
+                    <div class="collapse edit_product" id="editProduct" data-token="{{csrf_token()}}"></div>
 
                     <div class="collapse info_product" id="infoProduct" >
                         <div class="modal-content">

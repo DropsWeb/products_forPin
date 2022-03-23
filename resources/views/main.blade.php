@@ -45,6 +45,12 @@
                     @error('article', 'add')
                         <div class="alert alert-danger w-100">{{ $message }}</div>
                     @enderror
+                    @error('name', 'edit')
+                        <div class="alert alert-danger w-100">{{ $message }}</div>
+                    @enderror
+                    @error('article', 'edit')
+                        <div class="alert alert-danger w-100">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="d-flex justify-content-between main_content">
                     <div class="list_products">

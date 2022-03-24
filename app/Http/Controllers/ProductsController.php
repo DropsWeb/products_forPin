@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Products;
+use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
@@ -39,13 +40,21 @@ class ProductsController extends Controller
     }
 
     public function edit_product(Request $request) {
+
         $request->validateWithBag('edit', [
             'name' => ['bail', 'required','min:10'],
             'article' => ['bail', 'required', 'regex:/^[A-Za-z0-9]+$/']
         ]);
-
-
         $product = Products::find($request->id);
+
+        $user = Auth::user();
+
+        if($product->ARTICLE !== $request->article){
+            if(!$user->isAdmin){
+                return redirect('/')->withSuccess('Редактировать артикул может только администратор');
+            }
+        }
+
         $product->ARTICLE = $request->article;
         $product->NAME = $request->name;
         $product->STATUS = $request->status;

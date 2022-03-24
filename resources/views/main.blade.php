@@ -51,6 +51,9 @@
                     @error('article', 'edit')
                         <div class="alert alert-danger w-100">{{ $message }}</div>
                     @enderror
+                    @if(session('success'))
+                        <div class="alert alert-danger w-100">{{ session('success') }}</div>
+                    @endif
                 </div>
                 <div class="d-flex justify-content-between main_content">
                     <div class="list_products">

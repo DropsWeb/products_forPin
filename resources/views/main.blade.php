@@ -36,7 +36,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="bd-highlight user_name me-5">Елсуков Андрей Вячеславович</div>
+                    <div class="bd-highlight user_name me-5">{{$user->name}}<a href="{{route('logout')}}">(Выход)</a></div>
                 </div>
                 <div class="d-flex justify-content-between flex-column error_content">
                     @error('name', 'add')

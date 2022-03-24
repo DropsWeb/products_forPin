@@ -50,6 +50,14 @@ main .main_panel .user_name {
   display: flex;
   align-items: center;
 }
+main .main_panel .user_name a {
+  color: #A6AFB8;
+  margin-left: 5px;
+  text-decoration: none;
+}
+main .main_panel .user_name a:hover {
+  color: #202020;
+}
 main .main_panel .main_content {
   position: relative;
 }

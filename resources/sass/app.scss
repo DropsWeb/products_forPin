@@ -49,6 +49,14 @@ main {
             min-height: 100%;
             display: flex;
             align-items: center;
+            a {
+                color: #A6AFB8;
+                margin-left: 5px;
+                text-decoration: none;
+                &:hover {
+                    color: rgb(32, 32, 32);
+                }
+            }
         }
         .main_content {
             position: relative;

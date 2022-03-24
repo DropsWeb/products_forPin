@@ -41,7 +41,7 @@ class ProductsController extends Controller
     public function edit_product(Request $request) {
         $request->validateWithBag('edit', [
             'name' => ['bail', 'required','min:10'],
-            'article' => ['bail', 'required', 'unique:App\Models\Products,ARTICLE', 'regex:/^[A-Za-z0-9]+$/']
+            'article' => ['bail', 'required', 'regex:/^[A-Za-z0-9]+$/']
         ]);
 
 

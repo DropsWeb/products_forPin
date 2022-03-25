@@ -8,6 +8,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\InvoicePaid01;
 
 class SendEmail implements ShouldQueue
 {
@@ -30,6 +32,7 @@ class SendEmail implements ShouldQueue
      */
     public function handle()
     {
-        //
+        Notification::route('mail', config('products.email'))
+            ->notify(new InvoicePaid01());
     }
 }

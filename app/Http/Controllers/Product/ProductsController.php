@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Product;
 
+
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Products;
 use Illuminate\Support\Facades\Auth;
+use App\Jobs\SendEmail;
 
 class ProductsController extends Controller
 {
 
     public function add_product(Request $request) {
-
         $request->validateWithBag('add', [
             'name' => ['bail', 'required','min:10'],
             'article' => ['bail', 'required', 'unique:App\Models\Products,ARTICLE', 'regex:/^[A-Za-z0-9]+$/']
@@ -24,6 +26,7 @@ class ProductsController extends Controller
         $product->DATA = json_encode($request->input('data'));
 
         $product->save();
+        dispatch(new SendEmail());
         return redirect('/');
 
     }

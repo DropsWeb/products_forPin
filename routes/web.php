@@ -22,24 +22,10 @@ Route::get('/', function () {
     return view('main', ['products' => $products, 'user' => $user]);
 })->name('main')->middleware('auth');
 
-Route::get('/register', function(){
-    return view('register');
-});
-
-Route::get('/login', function(){
-    $user = Auth::user();
-    return view('login');
-})->name('login');
-
-
-
-
-Route::post('/makeUser', [RegisterController::class, 'newUser'])->name('make_account');
-Route::post('/auth', [LoginController::class, 'login'])->name('auth');
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::put('/add_product', [ProductsController::class, 'add_product']);
-
-
 Route::post('/remove_product', [ProductsController::class, 'remove_product']);
 Route::post('/edit_product', [ProductsController::class, 'edit_product']);
+
+require __DIR__.'/auth.php';
+require __DIR__.'/product.php';

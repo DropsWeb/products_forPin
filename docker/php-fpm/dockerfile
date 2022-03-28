@@ -11,6 +11,8 @@ RUN apt-get update \
     && docker-php-ext-enable pgsql
 
 ADD ./php.ini /usr/local/etc/php/php.ini
+ADD ./xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+ADD ./error_reporting.ini /usr/local/etc/php/conf.d/error_reporting.ini
 
 RUN wget https://getcomposer.org/installer -O - -q \
     | php -- --install-dir=/bin --filename=composer --quiet

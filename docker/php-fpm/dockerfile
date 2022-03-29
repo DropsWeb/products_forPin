@@ -13,9 +13,12 @@ RUN apt-get update \
 ADD ./php.ini /usr/local/etc/php/php.ini
 ADD ./xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 ADD ./error_reporting.ini /usr/local/etc/php/conf.d/error_reporting.ini
+ADD ./xdebug.log /tmp/xdebug.log
 
 RUN wget https://getcomposer.org/installer -O - -q \
     | php -- --install-dir=/bin --filename=composer --quiet
+
+RUN chmod ugo+rw- /tmp/xdebug.log
 
 USER 1000
 

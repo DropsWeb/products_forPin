@@ -8,15 +8,14 @@ use Illuminate\Http\Request;
 use App\Models\Products;
 use Illuminate\Support\Facades\Auth;
 use App\Jobs\SendEmail;
+use App\Http\Requests\ProductRequest;
+use App\Http\Requests\EditProductRequest;
 
 class ProductsController extends Controller
 {
 
-    public function addProduct(Request $request) {
-        $request->validateWithBag('add', [
-            'name' => ['bail', 'required','min:10'],
-            'article' => ['bail', 'required', 'unique:App\Models\Products,ARTICLE', 'regex:/^[A-Za-z0-9]+$/']
-        ]);
+    public function addProduct(ProductRequest $request) {
+        $request->validated();
 
         $product = new Products;
 
@@ -43,12 +42,9 @@ class ProductsController extends Controller
         return true;
     }
 
-    public function editProduct(Request $request) {
+    public function editProduct(EditProductRequest $request) {
 
-        $request->validateWithBag('edit', [
-            'name' => ['bail', 'required','min:10'],
-            'article' => ['bail', 'required', 'regex:/^[A-Za-z0-9]+$/']
-        ]);
+        $request->validated();
         $product = Products::find($request->id);
 
         $user = Auth::user();

@@ -7,10 +7,12 @@ body {
 }
 
 main {
-  height: 100vh;
-  max-height: 100vh;
+  min-height: 100vh;
   overflow-x: auto;
   overflow-y: hidden;
+}
+main .main_container {
+  min-height: 100vh;
 }
 main .left_panel {
   background-color: #374050;

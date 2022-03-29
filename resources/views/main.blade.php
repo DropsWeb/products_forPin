@@ -12,7 +12,7 @@
 </head>
 <body>
     <main>
-        <div class="d-flex flex-row bd-highlight h-100">
+        <div class="d-flex flex-row bd-highlight main_container">
 
             <div class="bd-highlight left_panel">
                 <div class="row">

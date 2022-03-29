@@ -1,10 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Product\ProductsController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,16 +13,7 @@ use App\Http\Controllers\Auth\LoginController;
 |
 */
 
-Route::get('/', function () {
-    $products = ProductsController::get_product();
-    $user = Auth::user();
-    return view('main', ['products' => $products, 'user' => $user]);
-})->name('main')->middleware('auth');
-
-
-Route::put('/add_product', [ProductsController::class, 'add_product']);
-Route::post('/remove_product', [ProductsController::class, 'remove_product']);
-Route::post('/edit_product', [ProductsController::class, 'edit_product']);
+Route::get('/', [ProductsController::class, 'getProduct'])->name('main')->middleware('auth');
 
 require __DIR__.'/auth.php';
 require __DIR__.'/product.php';

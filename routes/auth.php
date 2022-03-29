@@ -6,19 +6,11 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 
 
-Route::get('/register', function(){
-    return view('register');
-});
 
-Route::get('/login', function(){
-    $user = Auth::user();
-    return view('login');
-})->name('login');
+Route::get('/register', [LoginController::class, 'register'])->name('login');
+Route::get('/login', [LoginController::class, 'login'])->name('login');
 
 
-
-
-
-Route::post('/makeUser', [RegisterController::class, 'newUser'])->name('make_account');
-Route::post('/auth', [LoginController::class, 'login'])->name('auth');
+Route::post('/makeUser', [RegisterController::class, 'makeUser'])->name('make_account');
+Route::post('/auth', [LoginController::class, 'auth'])->name('auth');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');

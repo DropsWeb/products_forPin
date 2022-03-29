@@ -9,7 +9,17 @@ use Session;
 
 class LoginController extends Controller
 {
-    public function login(Request $request) {
+
+    public function login() {
+        $user = Auth::user();
+        return view('login');
+    }
+
+    public function register() {
+        return view('register');
+    }
+
+    public function auth(Request $request) {
         $request->validate([
             'name' => 'required',
             'password' => 'required'

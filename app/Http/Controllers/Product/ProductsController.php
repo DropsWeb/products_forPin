@@ -12,7 +12,7 @@ use App\Jobs\SendEmail;
 class ProductsController extends Controller
 {
 
-    public function add_product(Request $request) {
+    public function addProduct(Request $request) {
         $request->validateWithBag('add', [
             'name' => ['bail', 'required','min:10'],
             'article' => ['bail', 'required', 'unique:App\Models\Products,ARTICLE', 'regex:/^[A-Za-z0-9]+$/']
@@ -31,18 +31,19 @@ class ProductsController extends Controller
 
     }
 
-    public static function get_product() {
-        // return Products::all()->where("STATUS", 'available')->sortByDesc('id');
-        return Products::statusAvailable();
+    public static function getProduct() {
+        $products = Products::all();
+        $user = Auth::user();
+        return view('main', ['products' => $products, 'user' => $user]);
     }
 
-    public function remove_product(Request $request) {
+    public function removeProduct(Request $request) {
         $product = Products::find($request->id);
         $product->delete();
         return true;
     }
 
-    public function edit_product(Request $request) {
+    public function editProduct(Request $request) {
 
         $request->validateWithBag('edit', [
             'name' => ['bail', 'required','min:10'],

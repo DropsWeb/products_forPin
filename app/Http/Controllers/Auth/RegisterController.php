@@ -10,7 +10,7 @@ use Hash;
 class RegisterController extends Controller
 {
 
-    public function newUser(Request $request) {
+    public function makeUser(Request $request) {
         $request->validate([
             'name' => ['unique:users', 'min:5', 'required'],
             'email' => ['required', 'email',  'unique:users'],

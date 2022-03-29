@@ -13,7 +13,7 @@ use App\Http\Controllers\Product\ProductsController;
 |
 */
 
-Route::put('/add_product', [ProductsController::class, 'add_product'])->middleware('auth');
-Route::post('/remove_product', [ProductsController::class, 'remove_product'])->middleware('auth');
-Route::post('/edit_product', [ProductsController::class, 'edit_product'])->middleware('auth');
+Route::put('/add_product', [ProductsController::class, 'addProduct'])->middleware('auth');
+Route::post('/remove_product', [ProductsController::class, 'removeProduct'])->middleware('auth');
+Route::post('/edit_product', [ProductsController::class, 'editProduct'])->middleware('auth');
 

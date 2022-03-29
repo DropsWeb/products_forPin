@@ -18,14 +18,7 @@ class ProductService {
     }
 
     public static function add($data) {
-        $product = new Products;
-
-        $product->ARTICLE = $data['article'];
-        $product->NAME = $data['name'];
-        $product->STATUS = $data['status'];
-        $product->DATA = json_encode($data['data']);
-
-        $product->save();
+        Products::create($data);
         dispatch(new SendEmail());
         return redirect('/');
     }
@@ -47,10 +40,10 @@ class ProductService {
             }
         }
 
-        $product->ARTICLE = $data['article'];
-        $product->NAME = $data['name'];
-        $product->STATUS = $data['status'];
-        $product->DATA = json_encode($data['data']);
+        $product->article = $data['article'];
+        $product->name = $data['name'];
+        $product->status = $data['status'];
+        $product->data = $data['data'];
         $product->save();
 
         return redirect('/');

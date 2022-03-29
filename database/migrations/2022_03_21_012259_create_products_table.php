@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('ARTICLE', 255)->unique();
-            $table->string('NAME', 255);
-            $table->string('STATUS', 255);
-            $table->json('DATA');
+            $table->string('article', 255)->unique();
+            $table->string('name', 255);
+            $table->string('status', 255);
+            $table->json('data');
             $table->softDeletes();
         });
     }

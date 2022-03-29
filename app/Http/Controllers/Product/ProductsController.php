@@ -13,7 +13,7 @@ class ProductsController extends Controller
 {
 
     public function addProduct(ProductRequest $request) {
-        return ProductService::add($request->all());
+        return ProductService::add($request->toArray());
     }
 
     public static function index() {

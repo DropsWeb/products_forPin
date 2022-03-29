@@ -28,4 +28,11 @@ class EditProductRequest extends FormRequest
             'article' => ['bail', 'required', 'regex:/^[A-Za-z0-9]+$/']
         ];
     }
+
+    public function passedValidation()
+    {
+        $this->merge([
+            'data' => json_encode( $this->data )
+        ]);
+    }
 }

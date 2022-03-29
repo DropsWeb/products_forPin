@@ -66,12 +66,12 @@
                         <div class="list_products__items">
                             @foreach ($products as $product)
                                 <div class="list_products__items-item ps-3" data-product='{{json_encode($product)}}'>
-                                    <div class="list_item">{{$product->ARTICLE}}</div>
-                                    <div class="list_item">{{$product->NAME}}</div>
-                                    <div class="list_item">{{($product->STATUS == "available") ? "Доступен" : "Не доступен"}}</div>
+                                    <div class="list_item">{{$product->article}}</div>
+                                    <div class="list_item">{{$product->name}}</div>
+                                    <div class="list_item">{{($product->status == "available") ? "Доступен" : "Не доступен"}}</div>
                                     <div class="list_item-col">
-                                        @if (json_decode($product->DATA))
-                                            @foreach (json_decode($product->DATA) as $data)
+                                        @if (json_decode($product->data))
+                                            @foreach (json_decode($product->data) as $data)
                                                 <div class="list_item">{{$data->name}} : {{$data->value}}</div>
                                             @endforeach
                                         @endif

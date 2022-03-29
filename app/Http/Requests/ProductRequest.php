@@ -25,7 +25,15 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => ['bail', 'required','min:10'],
-            'article' => ['bail', 'required', 'unique:App\Models\Products,ARTICLE', 'regex:/^[A-Za-z0-9]+$/']
+            'article' => ['bail', 'required', 'unique:App\Models\Products,article', 'regex:/^[A-Za-z0-9]+$/']
         ];
     }
+
+    public function passedValidation()
+    {
+        $this->merge([
+            'data' => json_encode( $this->data )
+        ]);
+    }
+
 }

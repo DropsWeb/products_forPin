@@ -79,15 +79,15 @@ document.addEventListener("DOMContentLoaded", function() {
     function get_info(data) {
         edit_collapse.hide();
         product_data = JSON.parse(data.dataset.product);
-        product_data.DATA = JSON.parse(product_data.DATA);
+        product_data.data = JSON.parse(product_data.data);
 
         let info_product = info_collapse._element.querySelector(".modal-body");
-        info_collapse._element.querySelector(".modal-title").innerText = product_data.NAME;
+        info_collapse._element.querySelector(".modal-title").innerText = product_data.name;
         info_collapse._element.querySelector(".product_actions").dataset.id = product_data.id;
 
         let attributes = "";
-        for (attribute in product_data.DATA) {
-            let elem = product_data.DATA[attribute]
+        for (attribute in product_data.data) {
+            let elem = product_data.data[attribute]
             attributes += `
                 <div class="col product_value">${elem.name} : ${elem.value}</div>
             `
@@ -98,15 +98,15 @@ document.addEventListener("DOMContentLoaded", function() {
         info_product.insertAdjacentHTML("beforeend", `
             <div class="row mb-3">
                 <div class="col-2 product_name">Артикул</div>
-                <div class="col-6 product_value">${product_data.ARTICLE}</div>
+                <div class="col-6 product_value">${product_data.article}</div>
             </div>
             <div class="row mb-3">
                 <div class="col-2 product_name">Название</div>
-                <div class="col-6 product_value">${product_data.NAME}</div>
+                <div class="col-6 product_value">${product_data.name}</div>
             </div>
             <div class="row mb-3">
                 <div class="col-2 product_name">Статус</div>
-                <div class="col-6 product_value">${product_data.STATUS}</div>
+                <div class="col-6 product_value">${product_data.status}</div>
             </div>
             <div class="row mb-3">
                 <div class="col-2 product_name">Атрибуты</div>
@@ -143,11 +143,10 @@ document.addEventListener("DOMContentLoaded", function() {
         info_collapse.hide();
         let token = edit_product_container.dataset.token;
         let attributes = "";
-        console.log(product_data)
-        count_attr_edit = Object.keys(product_data.DATA).length;
+        count_attr_edit = Object.keys(product_data.data).length;
         let counter = 0;
-        for (attribute in product_data.DATA) {
-            let elem = product_data.DATA[attribute]
+        for (attribute in product_data.data) {
+            let elem = product_data.data[attribute]
             counter++;
             attributes += `
                 <div class="attribute" id="attr${counter}">
@@ -171,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let edit_content = `
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title">Редактировать ${product_data.NAME}</h5>
+                <h5 class="modal-title">Редактировать ${product_data.name}</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-toggle="collapse" data-bs-target="#editProduct" aria-expanded="false" aria-controls="editProduct"></button>
                 </div>
                 <div class="modal-body">
@@ -180,15 +179,15 @@ document.addEventListener("DOMContentLoaded", function() {
                         <input type="hidden" name="id" value="${product_data.id}">
                         <div class="mb-3">
                             <label for="articleProduct" class="form-label">Артикул</label>
-                            <input type="string" required name="article" class="form-control" id="articleProduct" value="${product_data.ARTICLE}" aria-describedby="articleProduct">
+                            <input type="string" required name="article" class="form-control" id="articleProduct" value="${product_data.article}" aria-describedby="articleProduct">
                         </div>
                         <div class="mb-3">
                             <label for="nameProduct" class="form-label">Название</label>
-                            <input type="string" required name="name" class="form-control" id="nameProduct" value="${product_data.NAME}" aria-describedby="nameProduct">
+                            <input type="string" required name="name" class="form-control" id="nameProduct" value="${product_data.name}" aria-describedby="nameProduct">
                         </div>
                         <div class="mb-3">
                             <label for="statusProduct" class="form-label">Статус</label>
-                            <select class="form-select" name="status" id="statusProduct" value="${product_data.STATUS}" aria-label="Default select example">
+                            <select class="form-select" name="status" id="statusProduct" value="${product_data.status}" aria-label="Default select example">
                                 <option value="available">Доступен</option>
                                 <option value="unavailable">Не доступен</option>
                             </select>

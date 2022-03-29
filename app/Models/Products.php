@@ -9,8 +9,9 @@ class Products extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
 
     public function scopeStatusAvailable($query) {
-        return $query->where('STATUS', 'available')->get()->sortBy('id');
+        return $query->where('status', 'available')->get()->sortBy('id');
     }
 }

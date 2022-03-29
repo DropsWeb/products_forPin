@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Session;
+use App\Services\AuthService;
+use App\Http\Requests\AuthRequest;
+
 
 class LoginController extends Controller
 {
@@ -19,22 +20,11 @@ class LoginController extends Controller
         return view('register');
     }
 
-    public function auth(Request $request) {
-        $request->validate([
-            'name' => 'required',
-            'password' => 'required'
-        ]);
-        $credentials = $request->only('name', 'password');
-        if(Auth::attempt($credentials)) {
-            return redirect()->intended('/');
-        }
-
-        return redirect('login')->withSuccess("Неверный логин или пароль");
+    public function auth(AuthRequest $request) {
+        return AuthService::authLogic($request->only('name', 'password'));
     }
 
     public function logout() {
-        Session::flush();
-        Auth::logout();
-        return redirect(route('login'));
+        return AuthService::logout();
     }
 }
